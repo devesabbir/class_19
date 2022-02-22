@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class_19</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row"> 
+      <div class="col">
+        <div class="add-row mt-2">
+          <a class="btn btn-success w-25 text-uppercase" data-bs-toggle="modal" href="#addModal">Add Item</a>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col">
+        <table class="table table-striped rounded text-center">
+          <thead>
+            <tr class="h6 text-center">
+              <th>Id</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Skill</th>
+              <th>Photo</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+  
+          <tbody id="addtd">
+            <tr>
+              <td>1</td>
+              <td>Sabbir</td>
+              <td>50</td>
+              <td>Mern</td>
+              <td><img src="" alt="img"></td>
+              <td>
+                <a class="btn text-white bg-info" data-bs-toggle="modal" href="#viewModal"><i class="fas fa-eye"></i></a>
+                <a class="btn text-white bg-info" href=""><i class="fas fa-edit"></i></a>
+                <a class="btn text-white bg-info" href=""><i class="fas fa-trash"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- add modal -->
+  <div class="modal fade" tabindex="-1" id="addModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+           
+           <form action="" id="add_form">
+                <input type="text" class="form-control my-2" placeholder="Name">
+                <input type="text" class="form-control my-2" placeholder="Age">
+                <input type="text" class="form-control my-2" placeholder="Photo">
+                <div class="select">
+                    <label id="_label" for=""></label>
+                    <div class="input-group mb-3">
+                        <select id="skills" name="" class="form-control form-select" aria-label="">
+                            <option value="">--Select--</option>   
+                        </select>
+                    </div>
+                </div>
+                <input class="btn btn-success w-100" type="submit">
+           </form>
+           
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- view modal -->
+  <div class="modal fade" tabindex="-1" id="viewModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body viewitem">
+           
+           
+           
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
