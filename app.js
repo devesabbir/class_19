@@ -2,6 +2,7 @@ const skills = document.getElementById('skills')
 const add_form = document.getElementById('add_form')
 const addtd = document.getElementById('addtd')
 const edit_form = document.getElementById('edit_form')
+const editskills = document.getElementById('editskills')
 
 
 
@@ -49,6 +50,8 @@ add_form.addEventListener('submit', function (e) {
 
 
 function addData() {
+
+
   let trtd = '';
   axios.get('http://localhost:7090/developers').then(data => {
     data.data.map((item, index) => {
@@ -59,7 +62,7 @@ function addData() {
            <td>${item.age}</td>
            <td><img style="width:100px;height:70px;object-fit:cover;" src="${item.photo}" alt="img"></td>
            <td>
-             <a class="btn text-white bg-info" data-bs-toggle="modal" href="#viewModal" onclick="viewData(${item.id})"><i class="fas fa-eye"></i></a>
+             <a class="btn text-white bg-info" data-bs-toggle="modal" href="#viewModal" onclick="viewData(${item.id},${item.skillsId})"><i class="fas fa-eye"></i></a>
              <a class="btn text-white bg-info" data-bs-toggle="modal" onclick="editData(${item.id})" href="#editModal"><i class="fas fa-edit"></i></a>
              <button class="btn text-white bg-info" onclick="dltData(${item.id})"><i class="fas fa-trash"></i></button>
            </td>
@@ -74,24 +77,31 @@ function addData() {
 
 addData()
 
-function viewData(id) {
+function viewData(id,sid) {
   let viewField = document.querySelector('.viewitem')
-  
-  axios.get('http://localhost:7090/developers/'+ id).then(res => {
-    
-     viewField.innerHTML = `
-          <div class="viewdata">
-          <img src="${res.data.photo}" alt="">
-          <div class="caption">
-               <p>${res.data.name}</p>
-               <p>${res.data.age}</p>
-               <p>${res.data.skillsId}</p>
-          </div>
-     </div>
-
-    `
+  let skilitem = ''
+  axios.get(`http://localhost:7090/skills/${sid}`).then( res => {
+      skilitem = res.data.name
   })
+
+  axios.get('http://localhost:7090/developers/'+id).then(res => {
+    
+    viewField.innerHTML = `
+         <div class="viewdata">
+         <img src="${res.data.photo}" alt="">
+         <div class="caption">
+              <p>${res.data.name}</p>
+              <p>${res.data.age}</p>
+              <p>${skilitem}</p>
+         </div>
+    </div>
+
+   `
+   })
+ 
 }
+
+
 
 // Edit Data
 function editData(id){
@@ -100,9 +110,9 @@ function editData(id){
     let eage = document.querySelector('input[placeholder="eAge"]')
     let ephoto = document.querySelector('input[placeholder="ephoto"]')
     let getphoto = document.querySelector('#editphoto')
-
+  
     axios.get(`http://localhost:7090/developers/${id}`).then( res => {
-         console.log(res.data);
+       
          ename.value = res.data.name
          eid.value = res.data.id
          eage.value = res.data.age
@@ -113,17 +123,19 @@ function editData(id){
 
 edit_form.addEventListener('submit',function(e){
    e.preventDefault()
-   let ename = document.querySelector('input[placeholder="eName"]')
-   let eid = document.querySelector('input[placeholder="eid"]')
-   let eage = document.querySelector('input[placeholder="eAge"]')
-   let ephoto = document.querySelector('input[placeholder="ephoto"]')
-  
+   let ename = this.querySelector('input[placeholder="eName"]')
+   let eid = this.querySelector('input[placeholder="eid"]')
+   let eage = this.querySelector('input[placeholder="eAge"]')
+   let ephoto = this.querySelector('input[placeholder="ephoto"]')
+   let eskillid = this.querySelector('input[placeholder="eskillid"]')
 
-    axios.patch(`http://localhost:7090/developers/${eid.value}`, {
+
+   axios.patch(`http://localhost:7090/developers/${eid.value}`, {
       id: '',
-      name: ename.value,
-      age: parseFloat(eage.value),
-      photo: ephoto.value,
+      name : ename.value,
+      age : parseFloat(eage.value),
+      photo : ephoto.value,
+      skillsId : parseFloat(eskillid.value)
     }).then( res => {
       addData()
     })
