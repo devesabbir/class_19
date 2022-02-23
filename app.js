@@ -57,7 +57,6 @@ function addData() {
            <td>${index + 1}</td>
            <td>${item.name}</td>
            <td>${item.age}</td>
-           <td>${item.skillsId}</td>
            <td><img style="width:100px;height:70px;object-fit:cover;" src="${item.photo}" alt="img"></td>
            <td>
              <a class="btn text-white bg-info" data-bs-toggle="modal" href="#viewModal" onclick="viewData(${item.id})"><i class="fas fa-eye"></i></a>
@@ -77,7 +76,7 @@ addData()
 
 function viewData(id) {
   let viewField = document.querySelector('.viewitem')
-
+  
   axios.get('http://localhost:7090/developers/'+ id).then(res => {
     
      viewField.innerHTML = `
@@ -99,6 +98,7 @@ function editData(id){
     let ename = document.querySelector('input[placeholder="eName"]')
     let eid = document.querySelector('input[placeholder="eid"]')
     let eage = document.querySelector('input[placeholder="eAge"]')
+    let ephoto = document.querySelector('input[placeholder="ephoto"]')
     let getphoto = document.querySelector('#editphoto')
 
     axios.get(`http://localhost:7090/developers/${id}`).then( res => {
@@ -106,6 +106,7 @@ function editData(id){
          ename.value = res.data.name
          eid.value = res.data.id
          eage.value = res.data.age
+         ephoto.value = res.data.photo
          getphoto.setAttribute('src',res.data.photo)
     })
 }
