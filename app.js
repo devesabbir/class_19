@@ -35,7 +35,7 @@ add_form.addEventListener('submit', function (e) {
     axios.post('http://localhost:7090/developers', {
       id: '',
       name: name.value,
-      age: age.value,
+      age: parseFloat(age.value),
       photo: photo.value,
       skillsId: skillselect.value
     }).then(res => {
@@ -122,7 +122,7 @@ edit_form.addEventListener('submit',function(e){
     axios.patch(`http://localhost:7090/developers/${eid.value}`, {
       id: '',
       name: ename.value,
-      age: eage.value,
+      age: parseFloat(eage.value),
       photo: ephoto.value,
     }).then( res => {
       addData()
