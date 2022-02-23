@@ -90,9 +90,9 @@ function viewData(id,sid) {
          <div class="viewdata">
          <img src="${res.data.photo}" alt="">
          <div class="caption">
-              <p>${res.data.name}</p>
-              <p>${res.data.age}</p>
-              <p>${skilitem}</p>
+              <p><span>Name:</span>${res.data.name}</p>
+              <p><span>Age:</span>${res.data.age}</p>
+              <p><span>Skill:</span>${skilitem}</p>
          </div>
     </div>
 
