@@ -1,6 +1,7 @@
 const skills = document.getElementById('skills')
 const add_form = document.getElementById('add_form')
 const addtd = document.getElementById('addtd')
+const edit_form = document.getElementById('edit_form')
 
 
 
@@ -60,7 +61,7 @@ function addData() {
            <td><img style="width:100px;height:70px;object-fit:cover;" src="${item.photo}" alt="img"></td>
            <td>
              <a class="btn text-white bg-info" data-bs-toggle="modal" href="#viewModal" onclick="viewData(${item.id})"><i class="fas fa-eye"></i></a>
-             <a class="btn text-white bg-info" href=""><i class="fas fa-edit"></i></a>
+             <a class="btn text-white bg-info" data-bs-toggle="modal" onclick="editData(${item.id})" href="#editModal"><i class="fas fa-edit"></i></a>
              <a class="btn text-white bg-info" href=""><i class="fas fa-trash"></i></a>
            </td>
          </tr>
@@ -68,9 +69,7 @@ function addData() {
            
            `
     })
-
-  }).then(res => {
-    addtd.innerHTML = trtd
+     addtd.innerHTML = trtd
   })
 }
 
@@ -94,6 +93,42 @@ function viewData(id) {
     `
   })
 }
+
+// Edit Data
+function editData(id){
+    let ename = document.querySelector('input[placeholder="eName"]')
+    let eid = document.querySelector('input[placeholder="eid"]')
+    let eage = document.querySelector('input[placeholder="eAge"]')
+    let getphoto = document.querySelector('#editphoto')
+
+    axios.get(`http://localhost:7090/developers/${id}`).then( res => {
+         console.log(res.data);
+         ename.value = res.data.name
+         eid.value = res.data.id
+         eage.value = res.data.age
+         getphoto.setAttribute('src',res.data.photo)
+    })
+}
+
+edit_form.addEventListener('submit',function(e){
+   e.preventDefault()
+   let ename = document.querySelector('input[placeholder="eName"]')
+   let eid = document.querySelector('input[placeholder="eid"]')
+   let eage = document.querySelector('input[placeholder="eAge"]')
+   let ephoto = document.querySelector('input[placeholder="ephoto"]')
+  
+
+    axios.patch(`http://localhost:7090/developers/${eid.value}`, {
+      id: '',
+      name: ename.value,
+      age: eage.value,
+      photo: ephoto.value,
+    }).then( res => {
+      addData()
+    })
+})
+
+
 
 
 
