@@ -62,7 +62,7 @@ function addData() {
            <td>
              <a class="btn text-white bg-info" data-bs-toggle="modal" href="#viewModal" onclick="viewData(${item.id})"><i class="fas fa-eye"></i></a>
              <a class="btn text-white bg-info" data-bs-toggle="modal" onclick="editData(${item.id})" href="#editModal"><i class="fas fa-edit"></i></a>
-             <a class="btn text-white bg-info" href=""><i class="fas fa-trash"></i></a>
+             <button class="btn text-white bg-info" onclick="dltData(${item.id})"><i class="fas fa-trash"></i></button>
            </td>
          </tr>
            
@@ -128,6 +128,14 @@ edit_form.addEventListener('submit',function(e){
     })
 })
 
+
+// delete data 
+function dltData(id){
+  
+    axios.delete(`http://localhost:7090/developers/${id}`).then( res => {
+      addData()
+    })
+}
 
 
 
